@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.electric.mapper.EchartsMapper">
+
+    <select id="countEChart" resultType="com.electric.domain.Echart">
+        SELECT
+        SUM(use_number) AS power_consumption,
+        COUNT(username) AS people_number,
+        SUM(
+        CASE
+        WHEN user_money &gt; 0 THEN
+        1
+        ELSE
+        0
+        END
+        ) AS arrears_people
+        FROM
+        USER
+        INNER JOIN meter ON meter_user = user_id
+        INNER JOIN use_log ON use_user = user_id
+    </select>
+
+
+</mapper>
